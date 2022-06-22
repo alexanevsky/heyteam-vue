@@ -44,10 +44,6 @@ export default {
 
     isAbleToAdd() {
       return this.$store.getters.isAbleToAdd(this.isPrimaryList);
-    },
-
-    isAbleToMove() {
-      return this.$store.getters.isAbleToMoveFrom(this.isPrimaryList);
     }
   },
 

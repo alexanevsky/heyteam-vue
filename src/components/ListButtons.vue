@@ -54,7 +54,6 @@ export default {
 
     remove(id) {
       this.$store.commit('remove', id);
-      this.$store.commit('deselect');
     },
 
     copy(id) {

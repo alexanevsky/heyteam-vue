@@ -13,24 +13,12 @@ export default new Vuex.Store({
   },
 
   getters: {
-    all(state) {
-      return state.items;
-    },
-
     list: (state) => (isPrimaryList) => {
       return state.items.filter((i) => i.isPrimaryList === isPrimaryList);
     },
 
-    item: (state) => (id) => {
-      return state.items.find((i) => i.id === id) || null;
-    },
-
     isAbleToAdd: (state) => (isPrimaryList) => {
       return state.items.filter((i) => i.isPrimaryList === isPrimaryList).length < MAX_ITEMS_PER_LIST;
-    },
-
-    isAbleToMoveFrom: (state) => (isPrimaryList) => {
-      return state.items.filter((i) => i.isPrimaryList === !isPrimaryList).length < MAX_ITEMS_PER_LIST;
     },
 
     selected(state) {
@@ -78,6 +66,10 @@ export default new Vuex.Store({
 
     remove(state, id) {
       state.items = state.items.filter((i) => i.id !== id && i.ref !== id);
+
+      if (state.selected === id) {
+        state.selected = null;
+      }
     },
 
     move(state, id) {
