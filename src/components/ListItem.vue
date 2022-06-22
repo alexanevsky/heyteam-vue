@@ -1,5 +1,5 @@
 <template>
-  <div class="app-list-item border rounded p-2 d-flex align-items-center" :style="{backgroundColor: color}" @click="$emit('selected')">
+  <div class="app-list-item border rounded p-2 d-flex align-items-center" :style="{backgroundColor: color}" @click="select()">
     <input v-model="color" type="text" class="form-control form-control-sm w-100" placeholder="Color">
     <button class="app-list-item-remove btn btn-danger btn-sm" @click="remove()"><i class="fas fa-times"></i></button>
   </div>
@@ -28,6 +28,10 @@ export default {
   methods: {
     remove() {
       this.$store.commit('remove', this.item.id);
+    },
+
+    select() {
+      this.$store.commit('select', this.item.id);
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="py-5">
     <div class="container">
+      <ListButtons class="mb-3" />
       <div class="row">
         <div class="col-md-5 offset-md-1">
           <List :is-primary-list="true" />
@@ -15,6 +16,7 @@
 
 <script>
 import List from '@/components/List.vue';
+import ListButtons from '@/components/ListButtons.vue';
 
 const DEMO_DATA = [
   {
@@ -29,7 +31,8 @@ const DEMO_DATA = [
 
 export default {
   components: {
-    List
+    List,
+    ListButtons
   },
 
   mounted() {

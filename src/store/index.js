@@ -8,7 +8,8 @@ const MAX_ITEMS_PER_LIST = 6;
 
 export default new Vuex.Store({
   state: {
-    items: []
+    items:    [],
+    selected: null
   },
 
   getters: {
@@ -30,6 +31,10 @@ export default new Vuex.Store({
 
     isAbleToMoveFrom: (state) => (isPrimaryList) => {
       return state.items.filter((i) => i.isPrimaryList === !isPrimaryList).length < MAX_ITEMS_PER_LIST;
+    },
+
+    selected(state) {
+      return state.items.find((i) => i.id === state.selected) || null;
     }
   },
 
@@ -105,6 +110,14 @@ export default new Vuex.Store({
           i.color = color;
         });
       }
+    },
+
+    select(state, id) {
+      state.selected = id;
+    },
+
+    deselect(state) {
+      state.selected = null;
     }
   }
 });
