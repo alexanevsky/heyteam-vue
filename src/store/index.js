@@ -17,6 +17,10 @@ export default new Vuex.Store({
       return state.items.filter((i) => i.isPrimaryList === isPrimaryList);
     },
 
+    item: (state) => (id) => {
+      return state.items.find((i) => i.id === id) || null;
+    },
+
     isAbleToAdd: (state) => (isPrimaryList) => {
       return state.items.filter((i) => i.isPrimaryList === isPrimaryList).length < MAX_ITEMS_PER_LIST;
     },
@@ -31,13 +35,16 @@ export default new Vuex.Store({
       state.items.push({
         id:             uuid(),
         isPrimaryList:  data.isPrimaryList,
-        color:          data.color || '#fff',
-        ref:            null
+        color:          data.color || '#fff'
       });
     },
 
     copy(state, id) {
-      const item = state.items.find((i) => i.id === id);
+      let item = state.items.find((i) => i.id === id);
+
+      if (item.ref) {
+        item = state.items.find((i) => i.id === item.ref);
+      }
 
       if (!item) {
         throw new Error('Cannot copy item with given id because it is not found');
@@ -45,8 +52,7 @@ export default new Vuex.Store({
 
       state.items.push({
         ...item,
-        id:   uuid(),
-        ref:  null
+        id: uuid()
       });
     },
 
@@ -58,9 +64,9 @@ export default new Vuex.Store({
       }
 
       state.items.push({
-        ...item,
-        id:   uuid(),
-        ref:  item.ref || item.id
+        id:             uuid(),
+        isPrimaryList:  item.isPrimaryList,
+        ref:            item.ref || item.id
       });
     },
 
@@ -87,21 +93,11 @@ export default new Vuex.Store({
       const color = payload.color || '';
       const item = state.items.find((i) => i.id === id);
 
-      if (!item) {
+      if (!item || typeof item.color === 'undefined') {
         throw new Error('Cannot change color of item with given id because it is not found');
       }
 
       item.color = color;
-
-      state.items.filter((i) => i.ref === id).forEach((i) => {
-        i.color = color;
-      });
-
-      if (item.ref) {
-        state.items.filter((i) => i.id === item.ref || i.ref === item.ref).forEach((i) => {
-          i.color = color;
-        });
-      }
     },
 
     select(state, id) {

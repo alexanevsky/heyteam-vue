@@ -15,12 +15,22 @@ export default {
   },
 
   computed: {
+    parent() {
+      if (this.item.ref) {
+        const parent = this.$store.getters.item(this.item.ref);
+
+        return parent;
+      }
+
+      return null;
+    },
+
     color: {
       get() {
-        return this.item.color;
+        return this.parent ? this.parent.color : this.item.color;
       },
       set(value) {
-        this.$store.commit('changeColor', { id: this.item.id, color: value });
+        this.$store.commit('changeColor', { id: this.parent ? this.parent.id : this.item.id, color: value });
       }
     }
   },
