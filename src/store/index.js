@@ -37,7 +37,7 @@ export default new Vuex.Store({
     insert(state, data) {
       state.items.push({
         id:             uuid(),
-        isPrimaryList:  data.isPrimaryList || true,
+        isPrimaryList:  data.isPrimaryList,
         color:          data.color || '#fff',
         ref:            null
       });
