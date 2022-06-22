@@ -16,34 +16,30 @@ export default new Vuex.Store({
       return state.items;
     },
 
-    list: (state) => (list) => {
-      return state.items.filter((i) => i.list === list);
+    list: (state) => (isPrimaryList) => {
+      return state.items.filter((i) => i.isPrimaryList === isPrimaryList);
     },
 
     item: (state) => (id) => {
       return state.items.find((i) => i.id === id) || null;
     },
 
-    isAbleToAdd: (state) => (list) => {
-      return state.items.filter((i) => i.list === list).length < MAX_ITEMS_PER_LIST;
+    isAbleToAdd: (state) => (isPrimaryList) => {
+      return state.items.filter((i) => i.isPrimaryList === isPrimaryList).length < MAX_ITEMS_PER_LIST;
     },
 
-    isAbleToMoveFrom: (state) => (list) => {
-      return state.items.filter((i) => i.list === (list === 1 ? 2 : 1)).length < MAX_ITEMS_PER_LIST;
+    isAbleToMoveFrom: (state) => (isPrimaryList) => {
+      return state.items.filter((i) => i.isPrimaryList === !isPrimaryList).length < MAX_ITEMS_PER_LIST;
     }
   },
 
   mutations: {
     insert(state, data) {
-      if (![1, 2].includes(data.list)) {
-        throw new Error('Cannot insert new item because list number is incorrect');
-      }
-
       state.items.push({
-        id:     uuid(),
-        list:   data.list,
-        color:  data.color || '#fff',
-        ref:    null
+        id:             uuid(),
+        isPrimaryList:  data.isPrimaryList || true,
+        color:          data.color || '#fff',
+        ref:            null
       });
     },
 
@@ -86,7 +82,7 @@ export default new Vuex.Store({
         throw new Error('Cannot move item with given id because it is not found');
       }
 
-      item.list = item.list === 1 ? 2 : 1;
+      item.isPrimaryList = !item.isPrimaryList;
     },
 
     changeColor(state, payload) {

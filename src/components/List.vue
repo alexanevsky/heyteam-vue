@@ -50,8 +50,8 @@ export default {
   },
 
   props: {
-    list: {
-      type: Number,
+    isPrimaryList: {
+      type: Boolean,
       required: true
     }
   },
@@ -62,19 +62,15 @@ export default {
 
   computed: {
     items() {
-      return this.$store.getters.list(this.list);
-    },
-
-    count() {
-      return this.items.length;
+      return this.$store.getters.list(this.isPrimaryList);
     },
 
     isAbleToAdd() {
-      return this.$store.getters.isAbleToAdd(this.list);
+      return this.$store.getters.isAbleToAdd(this.isPrimaryList);
     },
 
     isAbleToMove() {
-      return this.$store.getters.isAbleToMoveFrom(this.list);
+      return this.$store.getters.isAbleToMoveFrom(this.isPrimaryList);
     }
   },
 
@@ -88,7 +84,7 @@ export default {
 
   methods: {
     insert() {
-      this.$store.commit('insert', { list: this.list });
+      this.$store.commit('insert', { isPrimaryList: this.isPrimaryList });
     },
 
     remove() {

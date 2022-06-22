@@ -3,10 +3,10 @@
     <div class="container">
       <div class="row">
         <div class="col-md-5 offset-md-1">
-          <List :list="1" />
+          <List :is-primary-list="true" />
         </div>
         <div class="col-md-5 mt-4 mt-md-0">
-          <List :list="2" />
+          <List :is-primary-list="false" />
         </div>
       </div>
     </div>
@@ -18,12 +18,12 @@ import List from '@/components/List.vue';
 
 const DEMO_DATA = [
   {
-    list:   1,
-    color:  '#198754'
+    isPrimaryList:  true,
+    color:          '#198754'
   },
   {
-    list:   2,
-    color:  '#ffc107'
+    isPrimaryList:  false,
+    color:          '#ffc107'
   }
 ];
 
