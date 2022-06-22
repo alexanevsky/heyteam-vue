@@ -1,0 +1,11 @@
+// Import vendor stylesheets
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+// Import Bootstrap variables to overwrite defaults
+@import './bootstrap-variables';
+
+// Import Bootstrap
+@import 'bootstrap';
+
+// Import app stylesheets
+@import './app';

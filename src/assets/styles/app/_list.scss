@@ -1,0 +1,19 @@
+.app-list {
+  width: $app-list-size;
+  min-height: $app-list-size;
+
+  .app-list-item {
+    position: relative;
+    float: left;
+    width: calc(($app-list-size / 3) - $app-list-spacer * 2);
+    min-height: calc(($app-list-size / 3) - $app-list-spacer * 2);
+    margin: $app-list-spacer;
+
+    .app-list-item-remove {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translateX($app-list-remove-translate) translateY(-$app-list-remove-translate);
+    }
+  }
+}
